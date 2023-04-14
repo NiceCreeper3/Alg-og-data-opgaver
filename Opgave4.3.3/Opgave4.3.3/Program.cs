@@ -10,33 +10,16 @@ namespace Opgave4._3._3
         /// 
         ///Lav et lille program til at teste dine køer, hvor du sætter en række tal ind i køen og derefter trækker dem ud.
         /// </Opgave>
+
+        // avere double linkList
+        static DoublLinkedList linkedList = new DoublLinkedList();
+
         static void Main(string[] args)
         {
+            // over valus
             bool programISActtive = true;
 
-            // keaps the program running ontel you exit
-            while (programISActtive)
-            {
-                Console.WriteLine(
-                    "Please tip ind the nummber of what you want to do" +
-                    "\n(1) Work as fifo kø" +
-                    "\n(2) Work as lifo kø" +
-                    "\n(0) Exit Program");
-
-                try
-                {
-
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-
-
-            //Linksite valus
-            DoublLinkedList linkedList = new DoublLinkedList();
+            //Double link list valus
             linkedList.Append(5);
             linkedList.Append(6);
             linkedList.Append(1);
@@ -45,22 +28,74 @@ namespace Opgave4._3._3
             linkedList.Append(7);
             linkedList.Append(345);
 
-            //removes a node from the list
-            DoubleLinkedListNode nodeToRemove = linkedList.tail;
-            linkedList.RemoveNode(nodeToRemove);
+            try
+            {
+                while (programISActtive)
+                {
+                    // afleser listen
+                    linkedList.PrintList();
 
-            // afleser listen
-            // lige nu lease den i om vent firke følge
-            linkedList.PrintList();
+                    Console.WriteLine(
+                    "Please tip ind the nummber of what you want to do" +
+                    "\n(1) Add new node" +
+                    "\n(2) Remove node" +
+                    "\n(Enig othere nummber) Exit Program");
 
+                    int UserChois = int.Parse(Console.ReadLine());
 
-            linkedList.PrintReverseList();
+                    if (UserChois == 1)
+                    {
+                        Console.WriteLine("wite the nummber you want to add");
+                        int NewNode = int.Parse(Console.ReadLine());
 
+                        linkedList.Append(NewNode);
+                    }
+                    else if (UserChois == 2)
+                    {
+                        RemoveMeathod();
+                    }
+                    else
+                    {
+                        programISActtive = false;
+                    }
+                }
+                Console.Clear();            
+            }
+            catch (Exception)
+            {
 
-            //Tail
+                throw;
+            }
         }
 
-        #region
+        #region Fifo og Lifo meathods
+        static void RemoveMeathod()
+        {
+            DoubleLinkedListNode nodeToRemove;
+
+            Console.WriteLine(
+                "Please tip ind the nummber of what you want to do" +
+                "\n(1) Remove from front" +
+                "\n(2) Remove from Bake" +
+                "\n(Nothing) Exit Program");
+
+            int FifokøOrLifokø = int.Parse(Console.ReadLine());
+
+            // sees if the user wants to remove from the front
+            if (FifokøOrLifokø == 1)
+            {
+                nodeToRemove = linkedList.head;
+                linkedList.RemoveNode(nodeToRemove);
+            }
+            else if (FifokøOrLifokø == 2)
+            {
+                nodeToRemove = linkedList.tail;
+                linkedList.RemoveNode(nodeToRemove);
+            }
+        }
+        #endregion
+
+        #region Double Linklist
 
         /// <summary>
         /// a linlist node aka how we hold informason
@@ -82,12 +117,11 @@ namespace Opgave4._3._3
                 data = x;
                 next = null;
             }
-
-            //Lazy<int>
         }
 
         /// <summary>
         /// this class is easental all the short hand meathods we use to do what we want to the Double link list
+        /// suthe as remove add or printing avet the list
         /// </summary>
         class DoublLinkedList
         {
@@ -157,31 +191,28 @@ namespace Opgave4._3._3
             }
             #endregion
 
-            #region PrintLinkList
+            /// <summary>
+            /// Prints out the list
+            /// it does this by printint from the ferst  
+            /// and then goving fru its link to the next and reapid with this nod.
+            /// and it keeps doving this ontil it reathes null
+            /// </summary>
             public void PrintList()
             {
                 DoubleLinkedListNode runner = head;
                 while (runner != null)
                 {
                     Console.Write(runner.data + " ");
+                    // gets the next nummber
                     runner = runner.next;
                 }
                 Console.WriteLine();
             }
 
-            public void PrintReverseList()
-            {
-                DoubleLinkedListNode runner = tail;
-                while (runner != null)
-                {
-                    Console.Write(runner.data + " ");
-                    runner = runner.privies;
-                }
-                Console.WriteLine();
-            }
-            #endregion
         }
         #endregion
+
+
     }
 }
 
