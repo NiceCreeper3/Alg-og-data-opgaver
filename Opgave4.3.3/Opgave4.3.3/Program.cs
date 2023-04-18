@@ -156,11 +156,13 @@ namespace Opgave4._3._3
                 // deturmens if we remove from the head or tail of the Linklist
                 if (toRemove == null)
                 {
-                    // makes it so if there is nothing to remove 
+                    // makes it so if there is nothing to remove we do nothing
                     return;
                 } 
                 if (toRemove == head) 
                 {
+                    /// checks if the next ind row is null or not.
+                    /// if it is it takes the 
                     head = head.next;
                     if (head != null)
                     {
@@ -186,6 +188,9 @@ namespace Opgave4._3._3
                     }
                     return;
                 }
+
+                /// Removes the refrinsens to the node we are reamoving
+                /// and moving them to the 
                 toRemove.privies.next = toRemove.next;
                 toRemove.next.privies = toRemove.privies;
             }
