@@ -33,13 +33,15 @@ namespace Opgave4._5._1
             binaryTree.Add(5);
             binaryTree.Add(8);
 
+            // Findes a nummber and then can print ithere its oven data or the data of its children by RightNode.Data or LeftNode.Data
             Node node = binaryTree.Find(5);
+            Console.WriteLine(node.Data);
 
             Console.WriteLine("PreOrder Traversal:");
             binaryTree.TraversePreOrder(binaryTree.Root);
-            Console.WriteLine();
 
-            Console.WriteLine("InOrder Traversal:");
+
+            Console.WriteLine("\nInOrder Traversal:");
             binaryTree.TraverseInOrder(binaryTree.Root);
             Console.WriteLine();
 
@@ -54,6 +56,7 @@ namespace Opgave4._5._1
             binaryTree.TraversePreOrder(binaryTree.Root);
             Console.WriteLine();
 
+            #region the list
             Console.ReadLine();
 
             foreach (int e in Elements) 
@@ -65,7 +68,8 @@ namespace Opgave4._5._1
             foreach (int e in Elements) 
             {
                 Console.Write(e + " "); 
-            } 
+            }
+            #endregion
         }
 
 
@@ -83,6 +87,8 @@ namespace Opgave4._5._1
             #region
             public Node Root { get; set; }
 
+            //the method caller
+            #region 
             public bool Add(int value)
             {
                 Node before = null, after = this.Root;
@@ -127,7 +133,6 @@ namespace Opgave4._5._1
                 return true;
             }
 
-
             public Node Find(int value)
             {
                 return this.Find(value, this.Root);
@@ -137,16 +142,22 @@ namespace Opgave4._5._1
             {
                 this.Root = Remove(this.Root, value);
             }
+            #endregion
 
             private Node Remove(Node parent, int key)
             {
+                /// returns parant if the nummber we are looking for does not exist
+                /// we know this by the fakt that if we reathe a point.
+                /// where we are at a lief node and the data nummber is stil not the same
                 if (parent == null) return parent;
 
-                if (key < parent.Data) parent.LeftNode = Remove(parent.LeftNode, key);
+                //lookes if the node we want is smaller or bigger then det curent branthe we are at.
+                if (key < parent.Data) 
+                    parent.LeftNode = Remove(parent.LeftNode, key);
                 else if (key > parent.Data)
                     parent.RightNode = Remove(parent.RightNode, key);
 
-                // if value is same as parent's value, then this is the node to be deleted  
+                // if value is same as the branthe value, then this is the node we want to deleted  
                 else
                 {
                     // node with only one child or no child  
@@ -155,10 +166,11 @@ namespace Opgave4._5._1
                     else if (parent.RightNode == null)
                         return parent.LeftNode;
 
-                    // node with two children: Get the inorder successor (smallest in the right subtree)  
+                    // node with two children: Get the inorder successor (smallest in the right subtree)
                     parent.Data = MinValue(parent.RightNode);
 
                     // Delete the inorder successor  
+                    // and moves the other noedes akordening lig with the remove methoed
                     parent.RightNode = Remove(parent.RightNode, parent.Data);
                 }
 
