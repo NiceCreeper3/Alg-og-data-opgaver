@@ -9,17 +9,17 @@ namespace Opgave4._5._1
         /// Implementér et søgetræ. 
         /// Søgetræet skal have funktioner til søgning, til indsættelse og til sletning.
         /// Sletning er lidt kompliceret og kan eventuelt springes over.
-        /// <4.5.4>
+        /// 
+        /// <4.5.4> / toro jeg
         /// Hvis man gerne vil have udskrevet elementerne i et søgetræ i sorteret orden,
         /// kan man gennemløbe træet sådan at man først udskriver det venstre undertræ, 
         /// så det aktuelle element og derefter udskriver højre undertræ.
         /// Dette kan med fordel implementeres ved hjælp af rekursion.
+        /// 
         /// <4.5.5>
         /// Det kan være lidt svært at sikre sig at søgetræet virker i alle tilfælde.
         /// Ved at implementere nedenstående kode til aftestning, kommer man godt rundt i alle hjørner af søgetræet.
         ///</Opgaver>
-
-        static int[] Elements = { 12, 6, 14, 9, 2, 21, 15, 4, 20, 8, 13, 5, 17, 10, 11, 7, 18, 1, 16, 3, 19 };
         static void Main(string[] args) 
         {
             BinaryTree binaryTree = new BinaryTree();
@@ -55,21 +55,6 @@ namespace Opgave4._5._1
             Console.WriteLine("PreOrder Traversal After Removing Operation:");
             binaryTree.TraversePreOrder(binaryTree.Root);
             Console.WriteLine();
-
-            #region the list
-            Console.ReadLine();
-
-            foreach (int e in Elements) 
-            { 
-                Console.Write(e + " "); 
-            }
-            BinaryTree.SelectSort(Elements); 
-            Console.WriteLine(); 
-            foreach (int e in Elements) 
-            {
-                Console.Write(e + " "); 
-            }
-            #endregion
         }
 
 
@@ -192,9 +177,14 @@ namespace Opgave4._5._1
 
             private Node Find(int value, Node parent)
             {
+                // Continyous ontel it reathes a point were it kant finde a parant node
+                // this stopes the surthe if the thing we are looking for is not ind the tree
                 if (parent != null)
                 {
+                    //if the branth we are looking at is the same as the nommber we are lokking for the we return the 
                     if (value == parent.Data) return parent;
+
+                    // if we dident fint the node then we se if the nummber is higer or smaller the the branc we just looked at
                     if (value < parent.Data)
                         return Find(value, parent.LeftNode);
                     else
@@ -203,32 +193,25 @@ namespace Opgave4._5._1
 
                 return null;
             }
-/*
-            public void TraversePreOrder(Node parent) 
-            { 
-                if (parent != null) 
-                { 
-                    Console.WriteLine(parent.Data + " "); 
-                    if (parent.LeftNode != null) 
-                    { 
-                        Console.Write(parent.Data + " "); 
-                        TraversePreOrder(parent.LeftNode); 
-                    } 
-                    if (parent.RightNode != null) 
-                    { 
-                        Console.Write(parent.Data + " ");
-                        TraversePreOrder(parent.RightNode); 
-                    } 
-                } 
-            }*/
 
             public void TraversePreOrder(Node parent)
             {
+                // Continyous ontel it reathes a point were it kant finde a parant node
                 if (parent != null)
                 {
-                    Console.Write(parent.Data + " ");
-                    TraversePreOrder(parent.LeftNode);
-                    TraversePreOrder(parent.RightNode);
+                    // First writes the root nummber aka owere start node
+                    Console.WriteLine(parent.Data + " ");
+                    if (parent.LeftNode != null)
+                    {
+                        // reates the node parant node and then the left chiled node
+                        Console.Write(parent.Data + " ");
+                        TraversePreOrder(parent.LeftNode);
+                    }
+                    if (parent.RightNode != null)
+                    {
+                        Console.Write(parent.Data + " ");
+                        TraversePreOrder(parent.RightNode);
+                    }
                 }
             }
 
@@ -250,77 +233,6 @@ namespace Opgave4._5._1
                     TraversePostOrder(parent.RightNode);
                     Console.Write(parent.Data + " ");
                 }
-            }
-            #endregion
-
-            //Sort Tree
-            #region
-            public static void SelectSort(int[] values)
-            {
-                for (int sorted = 0; sorted < values.Length; sorted++) // hvilken plads er vi nået til 
-                {
-                    int kandidat = sorted;
-                    for (int i = sorted; i < values.Length; i++)
-                    {
-                        if (values[i] < values[kandidat]) // hvis det tal den er net til er mindre end den nuværende kandidat bliver det den nye kandidat (til at være mindst) 
-                            kandidat = i;
-                    }
-                    // swap: 
-                    int temp = values[kandidat];
-                    values[kandidat] = values[sorted];
-                    values[sorted] = temp;
-                }
-            }
-
-            public static void InsertionSort(int[] values)
-            {
-                for (int sorted = 1; sorted < values.Length; sorted++) // hvilken plads er vi nået til 
-                {
-                    int kandidat = values[sorted];
-                    bool flag = false;
-                    for (int i = sorted - 1; i >= 0 && flag == false;)
-                    {
-                        if (kandidat < values[i])
-                        {
-                            values[i + 1] = values[i];
-                            i--;
-                            values[i + 1] = kandidat;
-                        }
-                        else flag = true;
-                    }
-                    /*Console.WriteLine();
-                    foreach (int e in Elements) 
-                    { 
-                        Console.Write(e + " "); 
-                    }*/
-                }
-            }
-
-            public static void BubbleSort(int[] values)
-            {
-                int n = values.Length;
-                for (int sorted = 0; sorted < n - 1; sorted++)
-                {
-                    for (int i = 0; i < n - sorted - 1 /*&& flag == false*/; i++)
-                    {
-                        if (values[i + 1] < values[i])
-                        {
-                            Swap(i + 1, i, values);
-                        }
-                    }
-                    /*Console.WriteLine(); 
-                    foreach (int e in Elements) 
-                    { 
-                        Console.Write(e + " "); 
-                    }*/
-                }
-            }
-
-            static void Swap(int a, int b, int[] values)
-            {
-                int temp = values[b];
-                values[b] = values[a];
-                values[a] = temp;
             }
             #endregion
         }
