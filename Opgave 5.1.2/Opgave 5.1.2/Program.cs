@@ -1,31 +1,68 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Opgave_5._1._2
 {
     class Program
     {
-        static int[] Elements = { 12, 6, 14, 9, 2, 21, 15, 4, 20, 8, 13, 5, 17, 10, 11, 7, 18, 1, 16, 3, 19 };
+
+        /// <Opgave>
+        /// <5.1.2> true
+        /// Implementér et program der kan sortere en mængde tal ved hjælp af udvælgelsessortering.
+        /// 
+        /// <5.1.5> true
+        /// Implementér et program der kan sortere en mængde tal ved hjælp af indsættelsessortering.
+        /// 
+        /// <5.1.7> true
+        /// Implementér et program der kan sortere en mængde tal ved hjælp af bubble sort metoden.
+        /// 
+        /// <5.1.8>
+        /// Gør dine sorteringsmetoder generiske, dvs. 
+        /// man skal kunne sortere arrays (eller lister) af alle sorterbare typer (dem der implementerer IComparable).
+        /// </Opgave>
+        static int[] ArrayElements = { 12, 6, 14, 9, 2, 21, 15, 4, 20, 8, 13, 5, 17, 10, 11, 7, 18, 1, 16, 3, 19 };
+        static List<int> ListElemnts = new List<int> { 1,5,72,6,61,0,7,4,1,6,2,6,7,1,7,1 };
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
             #region the list
-            Console.ReadLine();
 
-            foreach (int e in Elements)
+            foreach (int e in ArrayElements)
             {
                 Console.Write(e + " ");
             }
-            SelectSort(Elements);
+            Console.WriteLine(
+                "how do you want to sort you Array" +
+                "\n(1) SelectSort" +
+                "\n(2) InsertionSort" +
+                "\n(3) BubbleSort");
+            int UserChois = int.Parse(Console.ReadLine());
+
+            switch (UserChois)
+            {
+                case 1:
+                    SelectSort(ArrayElements);
+                    break;
+
+                case 2:
+                    InsertionSort(ArrayElements);
+                    break;
+
+                case 3:
+                    BubbleSort(ArrayElements);
+                    break;
+
+            }
+
+
             Console.WriteLine();
-            foreach (int e in Elements)
+            foreach (int e in ArrayElements)
             {
                 Console.Write(e + " ");
             }
             #endregion
         }
 
-        //Sort List
+        //Sort Array
         #region
         public static void SelectSort(int[] values)
         {
@@ -34,13 +71,12 @@ namespace Opgave_5._1._2
                 int kandidat = sorted;
                 for (int i = sorted; i < values.Length; i++)
                 {
-                    if (values[i] < values[kandidat]) // hvis det tal den er net til er mindre end den nuværende kandidat bliver det den nye kandidat (til at være mindst) 
+                    if (values[i] < values[kandidat]) // hvis det tal den er nåt til er mindre end den nuværende kandidat bliver det den nye kandidat (til at være mindst) 
                         kandidat = i;
                 }
-                // swap: 
-                int temp = values[kandidat];
-                values[kandidat] = values[sorted];
-                values[sorted] = temp;
+
+                //swap
+                Swap(sorted, kandidat, values);
             }
         }
 
@@ -88,6 +124,7 @@ namespace Opgave_5._1._2
             }
         }
 
+        // swap method
         static void Swap(int a, int b, int[] values)
         {
             int temp = values[b];
