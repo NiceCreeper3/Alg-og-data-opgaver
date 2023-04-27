@@ -4,8 +4,20 @@ namespace Opgave5._4._3.HeapSort
 {
     class Program
     {
-        /* virker ved at tage det højeste nummmer til toppen og derefter skifte det ned i bunden */
-        public static void HeapSort(int[] arr)
+        static void Main(string[] args)
+        {
+            int[] arr = { 4, 2, 9, 5, 1, 6, 3 };
+            HeapSort(arr);
+            foreach (int num in arr)
+            {
+                Console.Write(num + " ");
+            }
+            // Output: 1 2 3 4 5 6 9
+        }
+
+        #region
+        /* virker ved at tage det højeste nummmer til toppen og derefter skifte det ned i bunden */
+        public static void HeapSort(int[] arr)
         {
             int n = arr.Length;
 
@@ -31,7 +43,8 @@ namespace Opgave5._4._3.HeapSort
                 Heapify(arr, i, 0);
             }
         }
-        public static void Heapify(int[] arr, int n, int i)
+
+        private static void Heapify(int[] array, int n, int i)
         {
             int largest = i; // Initialize largest as root or the current parent
             int l = 2 * i + 1; // left = 2*i + 1
@@ -40,13 +53,13 @@ namespace Opgave5._4._3.HeapSort
 
 
             // If left child is larger than root
-            if (l < n && arr[l] > arr[largest])
+            if (l < n && array[l] > array[largest])
                 largest = l;
 
 
 
             // If right child is larger than largest so far
-            if (r < n && arr[r] > arr[largest])
+            if (r < n && array[r] > array[largest])
                 largest = r;
 
 
@@ -54,25 +67,40 @@ namespace Opgave5._4._3.HeapSort
             // If largest is not root
             if (largest != i)
             {
-                int swap = arr[i];
-                arr[i] = arr[largest];
-                arr[largest] = swap;
+                int swap = array[i];
+                array[i] = array[largest];
+                array[largest] = swap;
 
 
 
                 // Recursively heapify the affected sub-tree
-                Heapify(arr, n, largest);
+                Heapify(array, n, largest);
             }
         }
-        static void Main(string[] args)
+
+   /*     private static void Heapify(int[] array, int arrayLeng, int i)
         {
-            int[] arr = { 4, 2, 9, 5, 1, 6, 3 };
-            HeapSort(arr);
-            foreach (int num in arr)
+            int Parent = i; // Initialize largest as root or the current parent
+            int left = 2 * i + 1; // left = 2*i + 1
+            int right = 2 * i + 2; // right = 2*i + 2
+
+            // If left child is larger than root
+            if (left < arrayLeng && array[left] > array[Parent])
+                Parent = left;
+            // If right child is larger than largest so far
+            if (right < arrayLeng && array[left] > array[Parent])
+                Parent = right;
+
+            if(Parent != i)
             {
-                Console.Write(num + " ");
+                int swap = array[i];
+                array[i] = array[Parent];
+                array[Parent] = swap;
+
+                // Recursively heapify the affected sub-tree
+                Heapify(array, arrayLeng, i);
             }
-            // Output: 1 2 3 4 5 6 9
-        }
+        }*/
+        #endregion
     }
 }
