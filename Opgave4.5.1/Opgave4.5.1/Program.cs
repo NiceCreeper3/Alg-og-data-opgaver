@@ -26,10 +26,10 @@ namespace Opgave4._5._1
 
             binaryTree.Add(1);
             binaryTree.Add(2);
-            binaryTree.Add(2);
             binaryTree.Add(7);
             binaryTree.Add(3);
             binaryTree.Add(10);
+            binaryTree.Add(7);
             binaryTree.Add(5);
             binaryTree.Add(8);
 
@@ -88,9 +88,9 @@ namespace Opgave4._5._1
                     before = after;
 
                     // checks if
-                    if (value <= after.Data) //Is new node in left tree? 
+                    if (value < after.Data) //Is new node in left tree? 
                         after = after.LeftNode;
-                    else if (value > after.Data) //Is new node in right tree?
+                    else if (value >= after.Data) //Is new node in right tree?
                         after = after.RightNode;
                     else
                     {
